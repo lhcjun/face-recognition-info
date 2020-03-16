@@ -1,0 +1,49 @@
+.logoText {
+    color: #ffffff;
+    font-size: 1.5em;
+    margin-right: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: 'Joti One';
+}
+
+.signBox {
+    color: #ffffff;
+    font-size: 1.5em;
+    font-family: 'Walter Turncoat';
+    margin-left: auto;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.signBox:hover,
+.tiltLogo:hover {
+    background-color: rgba(126, 252, 220, 0.521);
+}
+
+.signText:hover {
+    cursor: pointer;
+    font-weight: bold;
+    transition: font-weight .15s ease-in;
+}
+
+@media only screen and (max-width:600px) {
+    .signText {
+        font-size: 0.8em;
+        padding: 0;
+    }
+}
+
+@font-face {
+    font-family: 'Joti One';
+    font-display: swap;
+    src: local('Joti One'), local('JotiOne-Regular'), url(https://fonts.gstatic.com/s/jotione/v8/Z9XVDmdJQAmWm9TwabTZ6Ow.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Walter Turncoat';
+    font-display: swap;
+    src: local('Walter Turncoat Regular'), local('WalterTurncoat-Regular'), url(https://fonts.gstatic.com/s/walterturncoat/v10/snfys0Gs98ln43n0d-14ULoToe6LZxec.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

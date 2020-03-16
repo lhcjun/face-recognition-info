@@ -1,0 +1,6 @@
+.format {
+    background-color: rgb(250, 209, 163);
+    background-image:
+        linear-gradient(#eee .1em, transparent .1em);
+    background-size: 100% 1.7em;
+}

@@ -20,8 +20,9 @@ const initialState = {
   inputLink: '',
   imageUrl: '',
   faceFrame: [],
-  info: [],
-  index: 0
+  allInfo: [],
+  index: 0,
+  infoVisible: false
 };
 
 class App extends Component {
@@ -38,10 +39,10 @@ class App extends Component {
     const age = faceInfo.map(age => age.data.face.age_appearance.concepts[0]);
     const gender = faceInfo.map(gender => gender.data.face.gender_appearance.concepts[0]);
     const cultural = faceInfo.map(cultural => cultural.data.face.multicultural_appearance.concepts[0]);
-    // set state faceFrame and info with handlers
+    // set state faceFrame and allInfo with handlers
     this.setState({
       faceFrame: calculateFaceFrame(allFaces),
-      info: addFaceInfo(age, gender, cultural)
+      allInfo: addFaceInfo(age, gender, cultural)
     });
   }
 
@@ -50,18 +51,23 @@ class App extends Component {
   };
 
   onPictureSubmit = () => {
-    this.setState({ imageUrl: this.state.inputLink });
+    this.setState({ imageUrl: this.state.inputLink, infoVisible: false });
     app.models
       .predict(
-        "c0c0ac362b03416da06ab3fa36fb58e3",
+        Clarifai.DEMOGRAPHICS_MODEL,
         this.state.inputLink
       )
       .then(res => this.getFaceInfo(res))
       .catch(err => console.log(err))
   };
 
+  onMouseHovering = person => {
+    this.setState({index: person, infoVisible: true })
+  };
+
   render() {
-    const { imageUrl, faceFrame } = this.state;
+    const { imageUrl, faceFrame, allInfo, index, infoVisible } = this.state;
+    let displayPersonInfo = allInfo[index];
     return (
       <React.Fragment>
         <Particles params={particlesOptions} className="particles" />
@@ -73,9 +79,17 @@ class App extends Component {
               onInputChange={this.onInputChange}
               onPictureSubmit={this.onPictureSubmit}
             />
-            <FaceRecognition imageUrl={imageUrl} faceFrame={faceFrame} />
+            <FaceRecognition 
+              imageUrl={imageUrl}
+              faceFrame={faceFrame} 
+              onMouseHovering={this.onMouseHovering}
+            />
           </div>    
-          <ResultBox /> 
+          <ResultBox 
+            displayPersonInfo={displayPersonInfo} 
+            faceFrame={faceFrame} 
+            infoVisible={infoVisible}
+          /> 
         </div>
       </React.Fragment>
     );

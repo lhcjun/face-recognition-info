@@ -1,16 +1,24 @@
 import React from 'react';
 import './ImageLink.css';
 
-const ImageLink = ( {onInputChange, onPictureSubmit} ) => {
+const ImageLink = ( {onInputChange, onPictureSubmit, onInputMethodChange, methodText, inputMethod} ) => {
     return(
-            <div className='pa3 br3 shadow-5 form ml4 linkBox mt4'>
-                <input type="search" className='f4 pa2 font' 
+            <div className='pa3 br3 shadow-5 form ml4 linkBox mt4 pb2'>
+                {inputMethod === 'search'
+                ? <input type="search" className='pa2 urlFont inputBox' 
                        placeholder='Image Link' 
                        onChange = {onInputChange}
-                />
-                <button className='grow f4 link ph3 pv2 dib font'
+                  />
+                : <input type="file" className='pa2 fileFont inputFile'
+                       onChange = {onInputChange}
+                  />
+                }
+                <button className='grow link ph3 pv2 dib urlFont detBtn'
                         onClick = {onPictureSubmit}
                 >Detect</button>
+                <button className='methodBtn mt1'
+                        onClick={onInputMethodChange}
+                >Submit by {methodText}</button>       
             </div>
     );
 }

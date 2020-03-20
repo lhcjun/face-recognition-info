@@ -4,7 +4,7 @@ import './FaceRecognition.css';
 const FaceRecognition = ({ imageUrl, faceFrame, onMouseHovering }) => {
     const box = faceFrame.map((data, i) => {
       return(
-        <div className='bounding-box'
+        <div className='bounding-box grow'
              key={i}
              onMouseEnter={() => onMouseHovering(i)}
              style={{ top: faceFrame[i].topRow, right: faceFrame[i].rightCol,
@@ -14,9 +14,9 @@ const FaceRecognition = ({ imageUrl, faceFrame, onMouseHovering }) => {
       )
     })
     return(
-        <div>
+        <div className='ml4 mb4 absolute'>
           <img src={ imageUrl } alt="" id='inputImg' 
-               style={{width: '40em', height:'auto'}} className='ml4 mb4'
+              //  style={{width: '50vw', height:'auto'}}
           />
           {box}
         </div>

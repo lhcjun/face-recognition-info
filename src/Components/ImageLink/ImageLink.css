@@ -1,19 +1,40 @@
-input {
+.inputBox {
     border-radius: 10px 0 0 10px;
     width: 75%;
     background-color: rgba(248, 248, 248, 0.925);
 }
 
-button {
+.inputFile {
+    border-radius: 10px 0 0 10px;
+    width: 70%;
+    border: 1px solid rgb(167, 165, 165);
+    background-color: rgba(248, 248, 248, 0.925);
+}
+
+.detBtn {
     border: 1px solid rgb(155, 120, 54);
     border-radius: 0 10px 10px 0;
-    background-color: rgb(255, 198, 91);
+    background-color: rgb(248, 192, 154);
     width: 25%;
     color: rgb(51, 40, 19);
 }
 
-.font {
+.methodBtn {
+    border: 1px solid rgb(155, 120, 54);
+    border-radius: 10px;
+    background-color: rgb(255, 173, 173);
+    width: 28%;
+    color: rgb(51, 40, 19);
+}
+
+.urlFont {
     font-family: 'Walter Turncoat';
+    font-size: 1.3em;
+}
+
+.fileFont {
+    font-family: 'cwTeXYen';
+    font-size: 1em;
 }
 
 button:hover {
@@ -21,7 +42,26 @@ button:hover {
 }
 
 .linkBox {
-    width: 40em;
+    width: 50vw;
+}
+
+
+@media only screen and (max-width:1000px) {
+    .linkBox {
+        width: 70vw;
+    }
+}
+
+@media only screen and (max-width:750px) {
+    .linkBox {
+        width: 90vw;
+    }
+}
+
+@media only screen and (max-width:400px) {
+    .font {
+        font-size: 1.1em;
+    }
 }
 
 .form {
@@ -41,4 +81,13 @@ button:hover {
     font-display: swap;
     src: local('Walter Turncoat Regular'), local('WalterTurncoat-Regular'), url(https://fonts.gstatic.com/s/walterturncoat/v10/snfys0Gs98ln43n0d-14ULoToe6LZxec.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'cwTeXYen';
+    src: url(//fonts.gstatic.com/ea/cwtexyen/v3/cwTeXYen-zhonly.eot);
+    src: url(//fonts.gstatic.com/ea/cwtexyen/v3/cwTeXYen-zhonly.eot?#iefix) format('embedded-opentype'),
+        url(//fonts.gstatic.com/ea/cwtexyen/v3/cwTeXYen-zhonly.woff2) format('woff2'),
+        url(//fonts.gstatic.com/ea/cwtexyen/v3/cwTeXYen-zhonly.woff) format('woff'),
+        url(//fonts.gstatic.com/ea/cwtexyen/v3/cwTeXYen-zhonly.ttf) format('truetype');
 }

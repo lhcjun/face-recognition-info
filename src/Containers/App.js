@@ -22,7 +22,11 @@ const initialState = {
   faceFrame: [],
   allInfo: [],
   index: 0,
-  infoVisible: false
+  infoVisible: false,
+  detectError: false,
+  inputMethod: 'search',
+  methodText: 'local',
+  noFaceError: false,
 };
 
 class App extends Component {
@@ -47,18 +51,37 @@ class App extends Component {
   }
 
   onInputChange = event => {
-    this.setState({ inputLink: event.target.value });
+    if(this.state.inputMethod === 'file'){
+      if(event.target.files[0]){
+        // read input file
+          let inputFile = event.target.files[0];
+          let fileReader = new FileReader();
+          fileReader.readAsDataURL(inputFile);
+          fileReader.onload = e => this.setState({inputLink: e.target.result})
+        }}else{
+          this.setState({ inputLink: event.target.value });  
+        }
   };
+
+  onInputMethodChange = () => {
+    this.state.inputMethod === 'search'
+    ? this.setState({inputMethod: 'file', methodText: 'url'})
+    : this.setState({inputMethod: 'search', methodText: 'local'})
+  }
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.inputLink, infoVisible: false });
+    // Data URI: data:image/jpeg;base64,<data>    <data> start from 23 (begin 0)
+    let handleInputFile = this.state.inputLink.split('').slice(23).join('');
     app.models
       .predict(
         Clarifai.DEMOGRAPHICS_MODEL,
-        this.state.inputLink
+        this.state.inputMethod === 'search'
+        ? this.state.inputLink
+        : handleInputFile
       )
       .then(res => this.getFaceInfo(res))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err), this.setState({detectError: true, faceFrame: [], }))
   };
 
   onMouseHovering = person => {
@@ -66,30 +89,37 @@ class App extends Component {
   };
 
   render() {
-    const { imageUrl, faceFrame, allInfo, index, infoVisible } = this.state;
+    const { imageUrl, faceFrame, allInfo, index, infoVisible, detectError, methodText, inputMethod } = this.state;
     let displayPersonInfo = allInfo[index];
+    
     return (
       <React.Fragment>
         <Particles params={particlesOptions} className="particles" />
         <Navigation />
         <Count />
-        <div className='flex flex-wrap'>
+        <div className='flex flex-wrap center'>
+          <ResultBox
+              displayPersonInfo={displayPersonInfo} 
+              faceFrame={faceFrame} 
+              infoVisible={infoVisible}
+              detectError={detectError}
+              imageUrl={imageUrl}
+              inputMethod={inputMethod}
+            />        
           <div className='mr4'>
             <ImageLink
               onInputChange={this.onInputChange}
               onPictureSubmit={this.onPictureSubmit}
+              onInputMethodChange={this.onInputMethodChange}
+              methodText={methodText}
+              inputMethod={inputMethod}
             />
-            <FaceRecognition 
+            <FaceRecognition
               imageUrl={imageUrl}
               faceFrame={faceFrame} 
               onMouseHovering={this.onMouseHovering}
             />
-          </div>    
-          <ResultBox 
-            displayPersonInfo={displayPersonInfo} 
-            faceFrame={faceFrame} 
-            infoVisible={infoVisible}
-          /> 
+          </div>
         </div>
       </React.Fragment>
     );

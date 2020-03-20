@@ -1,7 +1,7 @@
 import React from "react";
 import "./ResultBox.css";
 
-const ResultBox = ({ displayPersonInfo, faceFrame, infoVisible }) => {
+const ResultBox = ({ displayPersonInfo, faceFrame, infoVisible, detectError, imageUrl, inputMethod }) => {
   // To get each face's info 
   let personalInfo = [];
   for (let props in displayPersonInfo) {
@@ -15,37 +15,71 @@ const ResultBox = ({ displayPersonInfo, faceFrame, infoVisible }) => {
   const culturePercent = Math.round(personalInfo[5] * 100) + '%';
   
   return (
-    <div className="format ma4 br3">
-        <p className="f3 center pa4">
-     
-            {/* Initial & Hover */}
+    <div className="format ma4 br3 min-wid">
+        <div className="f4 center ph4 pv1 resultFont">
+        
+            {/* 1. Initial & Hover > Info Section */}
             {faceFrame.length > 0 
-            ? <p>Hover over the box to see the result</p>
-            : <p>
-                Want to know more about your customer?<br />
-                Just put image link in!
-              </p>
-            }
-
-            {/* Info Section */}
-            <div style={ infoVisible? {display: 'block'} : {display: 'none'} }>
-                <div>Age: {age}</div>
-                <div>Probability: {agePercent}</div>
-                <div>Gender: {gender}</div>
-                <div>Probability: {genderPercent}</div>
-                <div>Culture: {culture}</div>
-                <div>Probability: {culturePercent}</div>
-            </div>
-        </p>
+            ? 
+            (infoVisible
+                  /* 2. Hover & Info Section  */
+                ?   <div style={ infoVisible? {display: 'block'} : {display: 'none'} }>
+                      <p>偵測資訊 & 可能性</p>
+                      <p>
+                        年齡： <span className='b'>{age}</span> → {agePercent}    
+                      </p>
+                      <p>
+                        性別： <span className='b'>{gender}</span> → {genderPercent}
+                      </p>
+                      <p>
+                        文化： <span className='b'>{culture}</span> → {culturePercent}
+                      </p>
+                    </div>
+                : <p>請將滑鼠移動到藍框上</p>
+            )
+            : 
+            (detectError
+              /* 3. Initial & Error  */
+              ? 
+                (imageUrl.length === 0
+                  /* 4. Error type: no image submitted  */
+                  ? <p>請放入圖片 url</p>
+                  : (inputMethod === 'file'
+                      /* 5. local file detecting  */
+                    ? <p>
+                        裝置內上傳的圖片需多處理幾秒鐘<br/>
+                        請耐心稍後
+                      </p>
+                    : <div>
+                        <p>
+                        處理中...
+                        </p>
+                        <p>
+                          若圖片處理許久仍未顯示<br/>
+                          請檢查圖片連結是否有誤
+                        </p>
+                        <p>
+                          若圖片顯示但無法偵測<br/>
+                          請確保圖片中有臉部
+                        </p>
+                      </div>
+                    )
+                )
+              : <div>
+                  <p>
+                    想要更了解你的客層？
+                  </p>
+                  <p>
+                    放入圖片 url 或從裝置上傳<br />
+                    以取得年齡、性別、文化資訊
+                  </p>
+                </div>
+              )
+            }   
+        </div>
     </div>
   );
 };
 
 export default ResultBox;
 
-
-
-
-
-// 如果 ... 顯示 歡迎句子
-// 如果 不是...  > hover >  顯示 info / 無法取得圖片

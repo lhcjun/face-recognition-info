@@ -8,12 +8,16 @@
 }
 
 .signBox {
-    color: #ffffff;
-    font-size: 1.5em;
-    font-family: 'Walter Turncoat';
     margin-left: auto;
     padding-left: 2%;
     padding-right: 2%;
+}
+
+.signText {
+    color: #ffffff;
+    font-size: 1.5em;
+    font-family: 'Walter Turncoat';
+    white-space: nowrap;
 }
 
 .signBox:hover,

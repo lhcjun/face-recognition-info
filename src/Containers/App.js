@@ -8,6 +8,8 @@ import ImageLink from "../Components/ImageLink/ImageLink";
 import Count from "../Components/Count/Count";
 import FaceRecognition from "../Components/FaceRecognition/FaceRecognition";
 import ResultBox from "../Components/ResultBox/ResultBox";
+import SignIn from "../Components/SignIn/SignIn";
+import Register from "../Components/Register/Register";
 import { calculateFaceFrame } from './Handler/calculateFaceFrame';
 import { addFaceInfo } from './Handler/addFaceInfo';
 import "./App.css";
@@ -26,7 +28,8 @@ const initialState = {
   detectError: false,
   inputMethod: 'search',
   methodText: 'local',
-  noFaceError: false,
+  route: 'signIn',
+  isSignedIn: false
 };
 
 class App extends Component {
@@ -67,7 +70,7 @@ class App extends Component {
     this.state.inputMethod === 'search'
     ? this.setState({inputMethod: 'file', methodText: 'url'})
     : this.setState({inputMethod: 'search', methodText: 'local'})
-  }
+  };
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.inputLink, infoVisible: false });
@@ -80,47 +83,67 @@ class App extends Component {
         ? this.state.inputLink
         : handleInputFile
       )
-      .then(res => this.getFaceInfo(res))
-      .catch(err => console.log(err), this.setState({detectError: true, faceFrame: [], }))
+      .then(res => this.getFaceInfo(res), this.setState({detectError:false}))
+      .catch(err => console.log(err), this.setState({detectError: true, faceFrame: []}))
   };
 
   onMouseHovering = person => {
     this.setState({index: person, infoVisible: true })
   };
 
+  onRouteChange = route => {
+    route === 'signOut'
+    ? this.setState(initialState)
+    : (route === 'home'
+        ? this.setState({isSignedIn: true})
+        : this.setState({route: route})
+      )
+  };
+
   render() {
-    const { imageUrl, faceFrame, allInfo, index, infoVisible, detectError, methodText, inputMethod } = this.state;
+    const { imageUrl, faceFrame, allInfo, index, infoVisible, detectError, methodText, inputMethod, route, isSignedIn } = this.state;
     let displayPersonInfo = allInfo[index];
-    
+
     return (
       <React.Fragment>
         <Particles params={particlesOptions} className="particles" />
-        <Navigation />
-        <Count />
-        <div className='flex flex-wrap center'>
-          <ResultBox
-              displayPersonInfo={displayPersonInfo} 
-              faceFrame={faceFrame} 
-              infoVisible={infoVisible}
-              detectError={detectError}
-              imageUrl={imageUrl}
-              inputMethod={inputMethod}
-            />        
-          <div className='mr4'>
-            <ImageLink
-              onInputChange={this.onInputChange}
-              onPictureSubmit={this.onPictureSubmit}
-              onInputMethodChange={this.onInputMethodChange}
-              methodText={methodText}
-              inputMethod={inputMethod}
-            />
-            <FaceRecognition
-              imageUrl={imageUrl}
-              faceFrame={faceFrame} 
-              onMouseHovering={this.onMouseHovering}
-            />
-          </div>
-        </div>
+        <Navigation 
+          onRouteChange={this.onRouteChange} 
+          isSignedIn={isSignedIn} 
+        />
+        {route === 'home'
+          ? <React.Fragment>
+              <Count />
+              <div className='flex flex-wrap center'>
+                <ResultBox
+                    displayPersonInfo={displayPersonInfo} 
+                    faceFrame={faceFrame} 
+                    infoVisible={infoVisible}
+                    detectError={detectError}
+                    imageUrl={imageUrl}
+                    inputMethod={inputMethod}
+                  />        
+                <div className='mr4'>
+                  <ImageLink
+                    onInputChange={this.onInputChange}
+                    onPictureSubmit={this.onPictureSubmit}
+                    onInputMethodChange={this.onInputMethodChange}
+                    methodText={methodText}
+                    inputMethod={inputMethod}
+                  />    
+                  <FaceRecognition
+                    imageUrl={imageUrl}
+                    faceFrame={faceFrame} 
+                    onMouseHovering={this.onMouseHovering}
+                  /> 
+                </div>
+              </div>
+            </React.Fragment>
+          : ( route === 'signIn' || route === 'signOut'
+              ? <SignIn onRouteChange={this.onRouteChange} />
+              : <Register onRouteChange={this.onRouteChange} />
+            ) 
+        }
       </React.Fragment>
     );
   }

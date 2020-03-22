@@ -9,7 +9,7 @@ const ImageLink = ( {onInputChange, onPictureSubmit, onInputMethodChange, method
                        placeholder='Image Link' 
                        onChange = {onInputChange}
                   />
-                : <input type="file" className='pa2 fileFont inputFile'
+                : <input type="file" className='pa2 pb1 fileFont inputFile'
                        onChange = {onInputChange}
                   />
                 }

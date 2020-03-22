@@ -15,7 +15,7 @@ const FaceRecognition = ({ imageUrl, faceFrame, onMouseHovering }) => {
     })
     return(
         <div className='ml4 mb4 absolute'>
-          <img src={ imageUrl } alt="" id='inputImg' 
+          <img src={ imageUrl } alt="" id='inputImg'
               //  style={{width: '50vw', height:'auto'}}
           />
           {box}

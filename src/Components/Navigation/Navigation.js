@@ -3,11 +3,11 @@ import Tilt from "react-tilt";
 import logo from "./logo.png";
 import "./Navigation.css";
 
-const Navigation = () => {
+const Navigation = ({ onRouteChange, isSignedIn }) => {
   return (
     <nav className="ma0 flex">
       <Tilt
-        className="br2 shadow-2 pointer tiltLogo"
+        className="pointer tiltLogo"
         options={{ max: 35 }}
         style={{ height: 80, width: 250 }}
       >
@@ -20,11 +20,19 @@ const Navigation = () => {
           <div className="logoText">Face Recog</div>
         </div>
       </Tilt>
-      <nav
-        className="br2 shadow-2 signBox"
-      >
-        <p className="link signText">Sign Out</p>
-      </nav>
+      {isSignedIn
+        ? <nav className="signBox signOutBox">
+            <p className="link signText outText" onClick={() => onRouteChange('signOut')}>Sign Out</p>
+          </nav>
+        : <nav className="signBox flex ">
+            <div className="signInBox margin">
+              <p className="link signText inText" onClick={() => onRouteChange('signIn')}>Sign In</p>
+            </div>
+            <div className="registerBox">
+              <p className="link signText regiText" onClick={() => onRouteChange('register')}>Register</p>
+            </div>
+          </nav>
+      }
     </nav>
   );
 };

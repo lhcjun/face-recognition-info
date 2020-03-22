@@ -1,5 +1,5 @@
 .logoText {
-    color: #ffffff;
+    color: rgb(94, 97, 96);
     font-size: 1.5em;
     margin-right: 0;
     margin-top: auto;
@@ -14,27 +14,64 @@
 }
 
 .signText {
-    color: #ffffff;
+    color: rgb(136, 135, 135);
     font-size: 1.5em;
     font-family: 'Walter Turncoat';
     white-space: nowrap;
 }
 
-.signBox:hover,
 .tiltLogo:hover {
-    background-color: rgba(126, 252, 220, 0.521);
+    background-color: rgb(94, 97, 96);
 }
 
-.signText:hover {
+.tiltLogo:hover .logoText {
+    color: #fff;
+}
+
+.tiltLogo:hover img {
+    -webkit-filter: brightness(2.8);
+}
+
+.outText::after,
+.inText::after,
+.regiText::after {
+    content: '';
+    background: rgb(94, 97, 96);
+    display: block;
+    height: 2px;
+    width: 40%;
+    margin: 1% auto;
+    opacity: 0;
+}
+
+.outText:hover,
+.inText:hover,
+.regiText:hover {
     cursor: pointer;
-    font-weight: bold;
-    transition: font-weight .15s ease-in;
+    color: rgb(68, 70, 70);
+    transition: .15s ease-in;
+}
+
+.signOutBox:hover .outText::after,
+.signInBox:hover .inText::after,
+.registerBox:hover .regiText::after {
+    opacity: 1;
+    transition: opacity 0.7s ease-in;
+}
+
+.margin {
+    margin-right: 1.3em;
 }
 
 @media only screen and (max-width:600px) {
-    .signText {
-        font-size: 0.8em;
-        padding: 0;
+
+    .signText,
+    .logoText {
+        font-size: 1.1em;
+    }
+
+    .margin {
+        margin-right: 1em;
     }
 }
 
@@ -42,12 +79,5 @@
     font-family: 'Joti One';
     font-display: swap;
     src: local('Joti One'), local('JotiOne-Regular'), url(https://fonts.gstatic.com/s/jotione/v8/Z9XVDmdJQAmWm9TwabTZ6Ow.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-    font-family: 'Walter Turncoat';
-    font-display: swap;
-    src: local('Walter Turncoat Regular'), local('WalterTurncoat-Regular'), url(https://fonts.gstatic.com/s/walterturncoat/v10/snfys0Gs98ln43n0d-14ULoToe6LZxec.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }

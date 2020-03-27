@@ -6,9 +6,21 @@
 
 .inputFile {
     border-radius: 10px 0 0 10px;
-    width: 72%;
+    width: 71%;
     border: 1px solid rgb(167, 165, 165);
     background-color: rgba(248, 248, 248, 0.925);
+}
+
+@media only screen and (max-width: 540px) {
+    .inputFile {
+        width: 68%;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .inputFile {
+        width: 65%;
+    }
 }
 
 .detBtn {
@@ -63,8 +75,22 @@ button:hover {
 }
 
 @media only screen and (max-width: 400px) {
-    .font {
+    .fileFont {
         font-size: 1.1em;
+    }
+
+    .urlFont {
+        font-size: 1.1em;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .fileFont {
+        font-size: 1em;
+    }
+
+    .urlFont {
+        font-size: 0.9em;
     }
 }
 

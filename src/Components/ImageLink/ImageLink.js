@@ -5,11 +5,11 @@ const ImageLink = ( {onInputChange, onPictureSubmit, onInputMethodChange, method
     return(
             <div className='pa3 br3 shadow-5 form ml4 linkBox mt4 pb2'>
                 {inputMethod === 'search'
-                ? <input type="search" className='pa2 urlFont inputBox' 
+                ? <input type='search' className='pa2 urlFont inputBox' 
                        placeholder='Image Link' 
                        onChange = {onInputChange}
                   />
-                : <input type="file" className='pa2 pb1 fileFont inputFile'
+                : <input type='file' className='pa2 pb1 fileFont inputFile'
                        onChange = {onInputChange}
                   />
                 }

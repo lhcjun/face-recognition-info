@@ -1,11 +1,13 @@
 import React from 'react';
 import './Count.css';
 
-const Count = () => {
+const Count = ({ name, entries }) => {
     return(
         <div className='center f3 ma3'>
             <div className='welcomeFont'>
-                名字, 你偵測了 <span className='num'>?</span> 張圖片
+                {`${name}, 你偵測了 `}
+                <span className='num'>{entries}</span>
+                {` 張圖片`}
             </div>
             
         </div>

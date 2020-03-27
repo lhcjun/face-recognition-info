@@ -7,6 +7,11 @@
     cursor: pointer;
 }
 
+.bounding-box:hover {
+    background-color: #149df249;
+    transition: .1s all ease-in;
+}
+
 img {
     width: 50vw;
     height: auto;

@@ -9,6 +9,25 @@
     color: rgb(78, 80, 79);
 }
 
+#loginError {
+    display: none;
+    opacity: 1;
+    justify-content: center;
+    color: rgb(155, 12, 36);
+    margin-bottom: 1em;
+    letter-spacing: .04rem;
+}
+
+#formatWarning_e,
+#formatWarning_p {
+    display: none;
+    opacity: 1;
+    justify-content: center;
+    color: rgb(206, 159, 7);
+    margin: 0.5em;
+    letter-spacing: .04rem;
+}
+
 @media only screen and (max-width:600px) {
     .signTitle {
         font-size: 2.8rem;

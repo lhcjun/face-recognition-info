@@ -15,6 +15,11 @@
     color: rgb(141, 69, 58);
 }
 
+.numFont {
+    font-family: 'Lobster';
+    color: rgb(39, 31, 31);
+}
+
 .min-wid {
     min-width: 35vw;
 }

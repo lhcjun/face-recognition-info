@@ -96,7 +96,8 @@ class App extends Component {
     this.setState({ imageUrl: inputLink, infoVisible: false });
     //  /imageUrl => Clarifai API call & handleInputFile (Data URI)
     // Data URI: data:image/jpeg;base64,<data>
-    fetch(API_CALL.IMAGE_URL, {
+    const cors = 'https://cors-anywhere.herokuapp.com/';
+    fetch(cors + API_CALL.IMAGE_URL, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

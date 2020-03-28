@@ -13,9 +13,10 @@ const ImageLink = ( {onInputChange, onPictureSubmit, onInputMethodChange, method
                        onChange = {onInputChange}
                   />
                 }
-                <button className='grow link ph3 pv2 dib urlFont detBtn'
-                        onClick = {onPictureSubmit}
-                >Detect</button>
+                <a href={onPictureSubmit} 
+                   className='grow link ph3 pv2 dib urlFont detBtn'
+                   onClick = {onPictureSubmit}
+                >Detect</a>
                 <button className='methodBtn mt1'
                         onClick={onInputMethodChange}
                 >Submit by {methodText}</button>       

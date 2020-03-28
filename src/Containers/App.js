@@ -102,7 +102,8 @@ class App extends Component {
       body: JSON.stringify({
         inputLink: inputLink,
         inputMethod: inputMethod
-      })
+      }),
+      mode: 'no-cors'
     })
       .then(res => res.json())
       .then(res => {

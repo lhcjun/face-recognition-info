@@ -97,7 +97,6 @@ class App extends Component {
     //  /imageUrl => Clarifai API call & handleInputFile (Data URI)
     // Data URI: data:image/jpeg;base64,<data>
     fetch(API_CALL.IMAGE_URL, {
-      mode: 'no-cors',
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

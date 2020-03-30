@@ -96,13 +96,23 @@ class App extends Component {
     this.setState({ imageUrl: inputLink, infoVisible: false });
     //  /imageUrl => Clarifai API call & handleInputFile (Data URI)
     // Data URI: data:image/jpeg;base64,<data>
+
+    let headers = new Headers();
+
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Basic ');
+    headers.append('Origin','https://facial-detective.herokuapp.com/');
+
+
     fetch(API_CALL.IMAGE_URL, {
       method: 'post',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', headers},
       body: JSON.stringify({
         inputLink: inputLink,
         inputMethod: inputMethod
-      })
+      }),
+      credentials: 'include'
     })
       .then(res => res.json())
       .then(res => {

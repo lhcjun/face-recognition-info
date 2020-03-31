@@ -90,7 +90,7 @@ class App extends Component {
     ? this.setState({inputMethod: 'file', methodText: 'url'})
     : this.setState({inputMethod: 'search', methodText: 'local'})
   };
-  
+
   onPictureSubmit = () => {
     const { inputLink, inputMethod } = this.state;
     this.setState({ imageUrl: inputLink, infoVisible: false });
@@ -103,7 +103,7 @@ class App extends Component {
         inputLink: inputLink,
         inputMethod: inputMethod
       }),
-      credentials: 'include'
+      // credentials: 'include'
     })
       .then(res => res.json())
       .then(res => {

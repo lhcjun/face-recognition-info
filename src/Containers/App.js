@@ -59,9 +59,9 @@ class App extends Component {
     // To get all faces in an image
     const allFaces = faceInfo.map(face => face);
     // To get the highest percentage of age, gender, cultural
-    const age = faceInfo.map(age => age.data.face.age_appearance.concepts[0]);
-    const gender = faceInfo.map(gender => gender.data.face.gender_appearance.concepts[0]);
-    const cultural = faceInfo.map(cultural => cultural.data.face.multicultural_appearance.concepts[0]);
+    const age = faceInfo.map(age => age.data.concepts[0]);
+    const gender = faceInfo.map(gender => gender.data.concepts[20]);
+    const cultural = faceInfo.map(cultural => cultural.data.concepts[22]);
     // count faces
     const faceAmount = data.outputs[0].data.regions.length;
     // set state faceFrame and allInfo with handlers

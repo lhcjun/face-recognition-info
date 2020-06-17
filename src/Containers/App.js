@@ -55,19 +55,18 @@ class App extends Component {
   }
 
   getFaceInfo = data => {
-    const faceInfo = data.outputs[0].data.regions;
-    // To get all faces in an image
-    const allFaces = faceInfo.map(face => face);
+    // To get info of all faces in an image
+    const allFacesInfo = data.outputs[0].data.regions;
     // To get the highest percentage of age, gender, cultural
-    const age = faceInfo.map(age => age.data.concepts[0]);
-    const gender = faceInfo.map(gender => gender.data.concepts[20]);
-    const cultural = faceInfo.map(cultural => cultural.data.concepts[22]);
+    const ages = allFacesInfo.map(face => face.data.concepts[0]);
+    const genders = allFacesInfo.map(face => face.data.concepts[20]);
+    const culturals = allFacesInfo.map(face => face.data.concepts[22]);
     // count faces
     const faceAmount = data.outputs[0].data.regions.length;
     // set state faceFrame and allInfo with handlers
     this.setState({
-      faceFrame: calculateFaceFrame(allFaces),
-      allInfo: addFaceInfo(age, gender, cultural),
+      faceFrame: calculateFaceFrame(allFacesInfo),
+      allInfo: addFaceInfo(ages, genders, culturals),
       faceAmount: faceAmount
     });
   }

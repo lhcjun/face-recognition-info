@@ -1,6 +1,6 @@
-export const calculateFaceFrame = face => {
+export const calculateFaceFrame = allFaces => {
     return(
-        face.map(eachFaceInfo => {
+        allFaces.map(eachFaceInfo => {
             const location = eachFaceInfo.region_info.bounding_box;
             const image = document.querySelector('#inputImg');
             const width = Number(image.width);

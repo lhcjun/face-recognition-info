@@ -26,8 +26,8 @@ const initialState = {
   faceAmount: 0,
   inputMethod: 'search',
   methodText: 'local',
-  route: 'signIn',
-  isSignedIn: false,
+  route: 'home', // signIn
+  isSignedIn: true,  // false
   user: {
     id: '',
     name: '',

@@ -18,6 +18,7 @@
     font-size: 1.5em;
     font-family: 'Walter Turncoat';
     white-space: nowrap;
+    margin-top: 20px;
 }
 
 .tiltLogo:hover {
@@ -28,8 +29,14 @@
     color: #fff;
 }
 
-.tiltLogo:hover img {
+/* png */
+.tiltLogo:hover Logo {
     -webkit-filter: brightness(2.8);
+}
+
+/* svg */
+.tiltLogo:hover .app-logo path {
+    fill: #fff;
 }
 
 .outText::after,
@@ -61,6 +68,16 @@
 
 .margin {
     margin-right: 1.3em;
+}
+
+.logo-padding {
+    padding: 1rem;
+}
+
+@media only screen and (max-width: 400px) {
+    .logo-padding {
+        padding-right: 0;
+    }
 }
 
 @media only screen and (max-width:600px) {

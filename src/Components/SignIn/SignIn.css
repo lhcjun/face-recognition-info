@@ -9,6 +9,10 @@
     color: rgb(78, 80, 79);
 }
 
+.focus-black:focus {
+    background-color: #000 !important;
+}  /* only for overwriting bootstrap, don't use it often */
+
 #loginError {
     display: none;
     opacity: 1;

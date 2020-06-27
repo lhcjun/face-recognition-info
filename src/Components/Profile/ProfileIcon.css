@@ -1,0 +1,6 @@
+.dropdown-margin {
+    top: 20px !important;
+    background-color: rgba(245, 245, 245, 0.863) !important;
+}
+
+/* only for overwriting bootstrap, don't use it often */

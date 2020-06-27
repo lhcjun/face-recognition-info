@@ -49,7 +49,7 @@ const ResultBox = ({ displayPersonInfo, faceFrame, infoVisible, detectError, ima
                   /* 5. local file detecting  */
                 ? <p>
                     裝置內上傳的圖片需多處理幾秒鐘<br/>
-                    請耐心稍後～
+                    請耐心稍候～
                   </p>
                 : <div>
                     <p>
@@ -65,11 +65,11 @@ const ResultBox = ({ displayPersonInfo, faceFrame, infoVisible, detectError, ima
             )
           : <div>
               <p>
-                取得客層資訊！
+                取得人物資訊！
               </p>
               <p>
                 使用圖片 url ／ 從裝置上傳圖片<br />
-                以取得年齡、性別、文化資訊
+                以取得人像的年齡、性別、文化資訊
               </p>
             </div>
           )

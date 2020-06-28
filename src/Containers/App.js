@@ -9,6 +9,8 @@ import FaceRecognition from '../Components/FaceRecognition/FaceRecognition';
 import ResultBox from '../Components/ResultBox/ResultBox';
 import SignIn from '../Components/SignIn/SignIn';
 import Register from '../Components/Register/Register';
+import Modal from '../Components/Modal/Modal';
+import Profile from '../Components/Profile/Profile';
 import { calculateFaceFrame } from './Handler/calculateFaceFrame';
 import { addFaceInfo } from './Handler/addFaceInfo';
 import { API_CALL } from '../Assets/apiCall';
@@ -26,6 +28,7 @@ const initialState = {
   faceAmount: 0,
   inputMethod: 'search',
   methodText: 'local',
+  isProfileOpen: false,
   route: 'home', // signIn
   isSignedIn: true,  // false
   user: {
@@ -139,8 +142,15 @@ class App extends Component {
     this.setState({route: route})
   };
 
+  toggleModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      isProfileOpen: !prevState.isProfileOpen
+    }))
+  };
+
   render() {
-    const { imageUrl, faceFrame, allInfo, index, infoVisible, detectError, methodText, inputMethod, route, isSignedIn, faceAmount } = this.state;
+    const { imageUrl, faceFrame, allInfo, index, infoVisible, detectError, methodText, inputMethod, route, isSignedIn, faceAmount, isProfileOpen } = this.state;
     let displayPersonInfo = allInfo[index];
 
     return (
@@ -149,10 +159,16 @@ class App extends Component {
         <Navigation 
           onRouteChange={this.onRouteChange} 
           isSignedIn={isSignedIn} 
+          toggleModal={this.toggleModal}
         />
         {route === 'home'
           ? <React.Fragment>
               <Count name={this.state.user.name} entries={this.state.user.entries} />
+              { isProfileOpen && 
+                <Modal>
+                  <Profile isProfileOpen={isProfileOpen} toggleModal={this.toggleModal} />
+                </Modal>
+              }
               <div className='flex flex-wrap center'>
                 <ResultBox
                     displayPersonInfo={displayPersonInfo} 

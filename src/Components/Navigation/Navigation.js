@@ -4,7 +4,7 @@ import ProfileIcon from '../Profile/ProfileIcon';
 import { ReactComponent as Logo } from './logo.svg';
 import './Navigation.css';
 
-const Navigation = ({ onRouteChange, isSignedIn }) => {
+const Navigation = ({ onRouteChange, isSignedIn, toggleModal }) => {
   return (
     <nav className='ma0 flex'>
       <Tilt
@@ -19,7 +19,7 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
       </Tilt>
       {isSignedIn
         ? <nav className='signBox signOutBox flex'>
-            <ProfileIcon onRouteChange={onRouteChange} />
+            <ProfileIcon onRouteChange={onRouteChange} toggleModal={toggleModal} />
           </nav>
         : <nav className='signBox flex '>
             <div className='signInBox margin'>

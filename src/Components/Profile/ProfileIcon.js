@@ -3,7 +3,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import './ProfileIcon.css';
 
 
-const ProfileIcon = ({ onRouteChange }) => {
+const ProfileIcon = ({ onRouteChange, toggleModal }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
 
@@ -25,7 +25,7 @@ const ProfileIcon = ({ onRouteChange }) => {
             right
             className='b--transparent shadow-5 dropdown-margin'
           >
-            <DropdownItem className='pv2'>View Profile</DropdownItem>
+            <DropdownItem onClick={toggleModal} className='pv2'>View Profile</DropdownItem>
             <DropdownItem onClick={() => onRouteChange('signOut')} className='pv2' >Sign Out</DropdownItem>
           </DropdownMenu>
         </Dropdown>

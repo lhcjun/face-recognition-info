@@ -7,7 +7,7 @@ const modalRoot = document.querySelector('#modal-root');
 class Model extends Component{
     constructor(props){
         super(props);
-        this.el = document.createElement('div');
+        this.el = document.createElement('div');    // container for new modal
     };
 
     componentDidMount(){

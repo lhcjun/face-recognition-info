@@ -29,14 +29,16 @@ const initialState = {
   inputMethod: 'search',
   methodText: 'local',
   isProfileOpen: false,
-  route: 'home', // signIn
-  isSignedIn: true,  // false
+  route: 'signIn', // signIn
+  isSignedIn: false,  // false
   user: {
     id: '',
     name: '',
     email: '',
     entries: 0,
-    joined: ''
+    joined: '',
+    pet: '',
+    age: ''
   }
 };
 
@@ -48,6 +50,7 @@ class App extends Component {
 
   loadUser = data => {
     // when sign in or register > load user info > use id (server) to add entries (state)
+    // when user updating data > Profile call loadUser to set user state
     this.setState({user: {
       id: data.id,
       name: data.name,
@@ -150,7 +153,7 @@ class App extends Component {
   };
 
   render() {
-    const { imageUrl, faceFrame, allInfo, index, infoVisible, detectError, methodText, inputMethod, route, isSignedIn, faceAmount, isProfileOpen } = this.state;
+    const { imageUrl, faceFrame, allInfo, index, infoVisible, detectError, methodText, inputMethod, route, isSignedIn, faceAmount, isProfileOpen, user } = this.state;
     let displayPersonInfo = allInfo[index];
 
     return (
@@ -166,7 +169,12 @@ class App extends Component {
               <Count name={this.state.user.name} entries={this.state.user.entries} />
               { isProfileOpen && 
                 <Modal>
-                  <Profile isProfileOpen={isProfileOpen} toggleModal={this.toggleModal} />
+                  <Profile 
+                    isProfileOpen={isProfileOpen} 
+                    toggleModal={this.toggleModal} 
+                    user={user} 
+                    loadUser={this.loadUser} 
+                  />
                 </Modal>
               }
               <div className='flex flex-wrap center'>

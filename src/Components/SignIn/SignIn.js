@@ -17,7 +17,11 @@ class SignIn extends Component{
       this.setState({signInPassword: event.target.value})
     }
 
-    onSubmitSignIn = event => {
+    saveAuthTokenInSession = token => {
+      window.sessionStorage.setItem('token', token);  // key value
+    }
+
+    onSubmitSignIn= event => {
       event.preventDefault();
       fetch(API_CALL.SIGNIN,{
         method: 'post',
@@ -28,20 +32,20 @@ class SignIn extends Component{
         })
       })
       .then(res => res.json())
-      .then(user => this.onSignInValidate(user.id, user))
+      .then(data => this.onSignInValidate(data.userId, data))
       .catch(console.log)
     }
 
-    onSignInValidate = (id, user) => {
+    onSignInValidate = (userId, data) => {
       const loginError = document.querySelector('#loginError');
-      if(id){ // user.id
+      if(userId && data.success === 'true'){ // data.userId
+          this.saveAuthTokenInSession(data.token);
           // when sign in or register > load user info
-          this.props.loadUser(user);
+          this.props.loadUser(data);
           this.props.onRouteChange('home');
       }else{
         loginError.style.display = 'flex';
-      }
-      
+      }  
     }
 
     render(){

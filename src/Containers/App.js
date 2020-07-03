@@ -48,6 +48,41 @@ class App extends Component {
     this.state = initialState;
   }
 
+  componentDidMount(){
+    // check if there's JWT token in session storage 
+    const token = window.sessionStorage.getItem('token'); // key
+    if(token){
+      fetch(API_CALL.SIGNIN, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token        // 'Bearer' + token
+        } // set JWT token to auth header on client side
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data && data.id){  // getAuthTokenId > { id: reply }
+            // get user profile from postgres with user id
+            fetch(API_CALL.PROFILE_ID + `${data.id}`, {
+              method: 'get',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+              }
+            })
+              .then(res => res.json())
+              .then(user => {
+                if(user && user.email){
+                  this.loadUser(user);
+                  this.onRouteChange('home');
+                }
+              })
+          }
+        })
+        .catch(console.log)
+    }
+  }
+
   loadUser = data => {
     // when sign in or register > load user info > use id (server) to add entries (state)
     // when user updating data > Profile call loadUser to set user state
@@ -61,20 +96,24 @@ class App extends Component {
   }
 
   getFaceInfo = data => {
-    // To get info of all faces in an image
-    const allFacesInfo = data.outputs[0].data.regions;
-    // To get the highest percentage of age, gender, cultural
-    const ages = allFacesInfo.map(face => face.data.concepts[0]);
-    const genders = allFacesInfo.map(face => face.data.concepts[20]);
-    const culturals = allFacesInfo.map(face => face.data.concepts[22]);
-    // count faces
-    const faceAmount = data.outputs[0].data.regions.length;
-    // set state faceFrame and allInfo with handlers
-    this.setState({
-      faceFrame: calculateFaceFrame(allFacesInfo),
-      allInfo: addFaceInfo(ages, genders, culturals),
-      faceAmount: faceAmount
-    });
+    // if no token in session > won't get into /image & /imageUrl
+    if(data && data.outputs){
+      // To get info of all faces in an image
+      const allFacesInfo = data.outputs[0].data.regions;
+      // To get the highest percentage of age, gender, cultural
+      const ages = allFacesInfo.map(face => face.data.concepts[0]);
+      const genders = allFacesInfo.map(face => face.data.concepts[20]);
+      const culturals = allFacesInfo.map(face => face.data.concepts[22]);
+      // count faces
+      const faceAmount = data.outputs[0].data.regions.length;
+      // set state faceFrame and allInfo with handlers
+      this.setState({
+        faceFrame: calculateFaceFrame(allFacesInfo),
+        allInfo: addFaceInfo(ages, genders, culturals),
+        faceAmount: faceAmount
+      });
+    };
+    return;
   }
 
   onInputChange = event => {
@@ -103,7 +142,10 @@ class App extends Component {
     // Data URI: data:image/jpeg;base64,<data>
     fetch(API_CALL.IMAGE_URL, {
       method: 'post',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': window.sessionStorage.getItem('token')
+      },
       body: JSON.stringify({
         inputLink: inputLink,
         inputMethod: inputMethod
@@ -115,7 +157,10 @@ class App extends Component {
         if(res){
           fetch(API_CALL.IMAGE, {
             method: 'put',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': window.sessionStorage.getItem('token')
+            },
             body: JSON.stringify({
               id: this.state.user.id
             })

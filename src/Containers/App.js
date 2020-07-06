@@ -91,7 +91,9 @@ class App extends Component {
       name: data.name,
       email: data.email,
       entries: data.entries,
-      joined: data.joined
+      joined: data.joined,
+      pet: data.pet,
+      age: data.age
     }})
   }
 
@@ -181,9 +183,14 @@ class App extends Component {
     this.setState({index: person, infoVisible: true })
   };
 
+  removeSessionToken = () => {
+    window.sessionStorage.removeItem('token')
+  }
+
   onRouteChange = route => {
     if(route === 'signOut'){
-      this.setState(initialState)
+      this.removeSessionToken();
+      this.setState(initialState);
     }else if (route === 'home'){
       this.setState({isSignedIn: true})
     }
@@ -215,7 +222,6 @@ class App extends Component {
               { isProfileOpen && 
                 <Modal>
                   <Profile 
-                    isProfileOpen={isProfileOpen} 
                     toggleModal={this.toggleModal} 
                     user={user} 
                     loadUser={this.loadUser} 

@@ -32,7 +32,7 @@ class SignIn extends Component{
         })
       })
       .then(res => res.json())
-      .then(data => this.onSignInValidate(data.userId, data))
+      .then(data => this.onSignInValidate(data.userId, data))   // return from /signIn createSessions
       .catch(console.log)
     }
 
@@ -41,7 +41,7 @@ class SignIn extends Component{
       if(userId && data.success === 'true'){ // data.userId
           this.saveAuthTokenInSession(data.token);
           // when sign in or register > load user info
-          this.props.loadUser(data);
+          this.props.loadUser(data.user);
           this.props.onRouteChange('home');
       }else{
         loginError.style.display = 'flex';

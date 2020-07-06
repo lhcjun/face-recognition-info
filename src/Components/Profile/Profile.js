@@ -31,19 +31,24 @@ class Profile extends Component {
   onProfileUpdate = updatedData => {
     fetch(API_CALL.PROFILE_ID + `${this.props.user.id}`, {
       method: 'post',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': window.sessionStorage.getItem('token')
+      },
       body: JSON.stringify({ formInput: updatedData })
     })
       .then(res => {
-        this.props.toggleModal();
-        // overwrite original user state with updatedData in formInput > for loadUser to setState(user)
-        this.props.loadUser({ ...this.props.user, ...updatedData }); 
+        if(res.status === 200 || res.status === 304){ // 304 => browser return cache version
+          this.props.toggleModal();
+          // overwrite original user state with updatedData in formInput > for loadUser to setState(user)
+          this.props.loadUser({ ...this.props.user, ...updatedData }); 
+        }
       })
       .catch(console.log)
   }
 
   render(){
-    const { isProfileOpen, toggleModal, user } = this.props;
+    const { toggleModal, user } = this.props;
     const { name, age, pet } = this.state;
     return (
       <div className='profile-modal'>

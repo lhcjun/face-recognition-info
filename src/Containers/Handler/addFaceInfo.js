@@ -13,5 +13,7 @@ export const addFaceInfo = ( ages, genders, culturals ) => {
     return infoArr;
 }
 
-// ps. 如果 genders、culturals 也用 push 的話 => 
-// 會在 infoArr 裡新增另一 obj，而不是在先前 push 的 ages 的個人 obj 裡新增成新屬性
+/* 
+    ps. 如果 genders、culturals 也用 push 的話 => 
+        會在 infoArr 裡新增另一 obj，而不是在先前 push 的 ages 的個人 obj 裡新增成新屬性
+*/

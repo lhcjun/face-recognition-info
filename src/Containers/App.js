@@ -125,7 +125,7 @@ class App extends Component {
           let inputFile = event.target.files[0];
           let fileReader = new FileReader();
           fileReader.readAsDataURL(inputFile);
-          fileReader.onload = e => this.setState({inputLink: e.target.result})
+          fileReader.onload = e => this.setState({ inputLink: e.target.result })
         }}else{
           this.setState({ inputLink: event.target.value });  
         }
@@ -176,11 +176,11 @@ class App extends Component {
         this.getFaceInfo(res);
         this.setState({detectError:false});
       })
-      .catch(err => console.log(err), this.setState({detectError: true, faceFrame: []}))
+      .catch(err => console.log(err), this.setState({ detectError: true, faceFrame: [] }))
   };
 
   onMouseHovering = person => {
-    this.setState({index: person, infoVisible: true })
+    this.setState({ index: person, infoVisible: true })
   };
 
   removeSessionToken = () => {
@@ -192,9 +192,9 @@ class App extends Component {
       this.removeSessionToken();
       this.setState(initialState);
     }else if (route === 'home'){
-      this.setState({isSignedIn: true})
+      this.setState({ isSignedIn: true })
     }
-    this.setState({route: route})
+    this.setState({ route: route })
   };
 
   toggleModal = () => {
@@ -219,7 +219,7 @@ class App extends Component {
         {route === 'home'
           ? <React.Fragment>
               <Count name={this.state.user.name} entries={this.state.user.entries} />
-              { isProfileOpen && 
+              { isProfileOpen &&      // isProfileOpen ? <Modal> : null
                 <Modal>
                   <Profile 
                     toggleModal={this.toggleModal} 

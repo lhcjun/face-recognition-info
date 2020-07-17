@@ -1,7 +1,7 @@
 import React from 'react';
 import './ImageLink.css';
 
-const ImageLink = ( {onInputChange, onPictureSubmit, onInputMethodChange, methodText, inputMethod} ) => {
+const ImageLink = ({ onInputChange, onPictureSubmit, onInputMethodChange, methodText, inputMethod }) => {
     return(
             <div className='pa3 br3 shadow-5 form ml4 linkBox mt4 pb2'>
                 {inputMethod === 'search'
